@@ -3,7 +3,7 @@ import pygame as pg
 pg.init()
 
 class GameSprite(pg.sprite.Sprite):
-    ''' класс для создания объектов
+    ''' класс для создания объектов фывапролд
     '''
     def __init__(self, image, x, y, step, sizeV, sizeH, scene):
         super().__init__()
@@ -53,3 +53,30 @@ class Player(GameSprite):
 
 # key_pressed = pg.key.get_pressed()
 # print(pg.K_UP)
+
+
+class Ball(GameSprite):
+    def __init__(self, image, x, y, step, sizeV, sizeH, scene, step_x, step_y):
+        super().__init__(image, x, y, step, sizeV, sizeH, scene)
+        self.step_x = 3
+        self.step_y = 3
+
+    def go_ball(self):
+        self.rect.x += self.step_x
+        self.rect.y += self.step_y
+
+    def collide_walls(self):
+        if self.rect.y > self.scene.get_height()-50 or self.rect.y < 0:
+            self.step_y *= -1
+
+    def collide_right(self):
+        if self.rect.x > self.scene.get_width()-50:
+            return True
+
+    def collide_left(self):
+        if self.rect.x < 0:
+            return True
+
+    def collide_player(self, player):
+        if pg.sprite.collide_rect(self, player):
+            self.step_x *= -1
