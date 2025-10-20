@@ -56,7 +56,7 @@ class Player(GameSprite):
 
 
 class Ball(GameSprite):
-    def __init__(self, image, x, y, step, sizeV, sizeH, scene, step_x, step_y):
+    def __init__(self, image, x, y, sizeV, sizeH, step_x, step_y, scene, step=None):
         super().__init__(image, x, y, step, sizeV, sizeH, scene)
         self.step_x = 3
         self.step_y = 3
