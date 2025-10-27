@@ -7,7 +7,7 @@ class GameSprite(pg.sprite.Sprite):
     '''
     def __init__(self, image, x, y, step, sizeV, sizeH, scene):
         super().__init__()
-        self.image = pg.transform.scale(pg.image.load(image).convert_alpha(), (sizeV, sizeH))
+        self.image = pg.transform.smoothscale(pg.image.load(image).convert_alpha(), (sizeV, sizeH))
         self.mask = pg.mask.from_surface(self.image)
         self.step = step
         self.rect = self.image.get_rect()
@@ -27,16 +27,16 @@ class Player(GameSprite):
 
     def go(self):
         key_pressed = pg.key.get_pressed()
-        if key_pressed[pg.K_UP] and self.rect.y > self.scene.get_height:
+        if key_pressed[pg.K_UP] and self.rect.y > 0:
             self.rect.y -= self.step
-        if key_pressed[pg.K_DOWN] and self.rect.y < self.scene.get_height:
+        if key_pressed[pg.K_DOWN] and self.rect.y < self.scene.get_height():
             self.rect.y += self.step
 
     def go2(self):
         key_pressed = pg.key.get_pressed()
-        if key_pressed[pg.K_W] and self.rect.y > self.scene.get_height:
+        if key_pressed[pg.K_w] and self.rect.y > 0:
             self.rect.y -= self.step
-        if key_pressed[pg.K_S] and self.rect.y < self.scene.get_height:
+        if key_pressed[pg.K_s] and self.rect.y < self.scene.get_height():
             self.rect.y += self.step
 
     def select_btn(self, up, down):
