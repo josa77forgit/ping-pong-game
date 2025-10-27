@@ -8,16 +8,16 @@ class PlayScreen():
         self.scene = scene
         self.player1 = Player('static/pictures/rocket.png', 100, 350, 5, 100, 200, self.scene)
         self.player2 = Player('static/pictures/rocket.png', 700, 350, 5, 100, 200, self.scene)
-        self.ball = Ball('static/pictures/ball.png', 350, 350, 50, 50, 3, 3, self.scene)
         self.field = GameSprite('static/pictures/field.png', 50, 50, 0, 740, 500, self.scene)
+        self.ball = Ball('static/pictures/ball.png', 350, 350, 50, 50, 3, 3, self.field.rect, self.scene)
         self.point1 = 0
         self.point2 = 0
         self.max_p = 10
 
     def draw_all(self):
         self.field.draw()
-        self.player1.update()
-        self.player2.update2()
+        self.player1.update2()
+        self.player2.update()
         self.ball.draw()
         self.ball.go_ball()
         self.ball.collide_walls()

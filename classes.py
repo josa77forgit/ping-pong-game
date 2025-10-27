@@ -56,17 +56,20 @@ class Player(GameSprite):
 
 
 class Ball(GameSprite):
-    def __init__(self, image, x, y, sizeV, sizeH, step_x, step_y, scene, step=None):
+    def __init__(self, image, x, y, sizeV, sizeH, step_x, step_y, scene_size, scene, step=None):
         super().__init__(image, x, y, step, sizeV, sizeH, scene)
         self.step_x = 3
         self.step_y = 3
+        self.ball_group = pg.sprite.Group()
+        self.ball_group.add(self)
+        self.scene_size = scene_size
 
     def go_ball(self):
         self.rect.x += self.step_x
         self.rect.y += self.step_y
 
     def collide_walls(self):
-        if self.rect.y > self.scene.get_height()-50 or self.rect.y < 0:
+        if self.rect.y > self.scene_size.y-self.rect.height or self.rect.y < 0:
             self.step_y *= -1
 
     def collide_right(self):
@@ -78,5 +81,5 @@ class Ball(GameSprite):
             return True
 
     def collide_player(self, player):
-        if pg.sprite.collide_rect(self, player):
+        if pg.sprite.spritecollide(player, self.ball_group, False, pg.sprite.collide_mask):
             self.step_x *= -1
