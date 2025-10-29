@@ -69,11 +69,11 @@ class Ball(GameSprite):
         self.rect.y += self.step_y
 
     def collide_walls(self):
-        if self.rect.y > self.scene_size.y-self.rect.height or self.rect.y < 0:
+        if self.rect.y < self.scene_size.y-self.rect.height and self.rect.y > 0: 
             self.step_y *= -1
 
     def collide_right(self):
-        if self.rect.x > self.scene.get_width()-50:
+        if self.rect.x > self.scene.get_width()-self.rect.width:
             return True
 
     def collide_left(self):
