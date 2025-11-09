@@ -3,7 +3,8 @@ import pygame as pg
 pg.init()
 
 class GameSprite(pg.sprite.Sprite):
-    ''' класс для создания объектов фывапролд
+    ''' класс для создания и расположения объектов.
+    создаем маски.
     '''
     def __init__(self, image, x, y, step, sizeV, sizeH, scene_size, scene):
         super().__init__()
@@ -23,6 +24,13 @@ class GameSprite(pg.sprite.Sprite):
         self.scene.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
+    ''' класс для создания двух ракеток-игроков.
+    каждой ракетке отдельный метод go(), отвечающий
+    за передвижение вниз и вверх. Наследуется от GameSprite,
+    тоесть уже имеет созданный объект. Также имеет 2 метода update
+    для каждого игрока. Метод select_btn() на данный момент никак
+    не используется.
+    '''
     up = None
     down = None
 
@@ -57,6 +65,16 @@ class Player(GameSprite):
 
 
 class Ball(GameSprite):
+    ''' класс для создания мяча. Наследуется от GameSprite,
+    уже имеет созданный объект. Метод go_ball() отвечает за
+    передвижение мяча. Для оптимизации передвижения добавлен цикл
+    for, помогает передвигать мяч на 1 пиксель с нормальной скоростью.
+    Метод collide_walls() отвечает за отскакивание мяча от нижней и верхней
+    стенки поля. Методы collide_right() и collide_left() возвращают True
+    в случае столкновения мяча с правой и левой стеной окна. Позже будет
+    реализована система баллов за выигрыш каждого игрока. Метод
+    collide_player() также отвечает за отскок мяча, но уже от ракеток-игроков.
+    '''
     def __init__(self, image, x, y, sizeV, sizeH, step_x, step_y, scene_size, scene, step=None):
         super().__init__(image, x, y, step, sizeV, sizeH, scene_size, scene)
         self.step_x = 1

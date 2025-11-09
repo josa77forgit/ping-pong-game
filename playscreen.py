@@ -4,6 +4,11 @@ from classes import GameSprite, Player, Ball
 pg.init()
 
 class PlayScreen():
+    ''' класс для создания и отрисовки объектов
+    на главном окне. В дальнейшем планируется
+    связь self.point1/2 с очками игроков при
+    столкновении мяча с левой и правой стеной.
+    '''
     def __init__(self, scene):
         self.scene = scene
         self.field = GameSprite('static/pictures/field.png', 50, 50, 0, 740, 500, None, self.scene)
