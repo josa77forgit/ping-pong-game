@@ -1,4 +1,5 @@
 import pygame as pg
+from random import random
 
 pg.init()
 
@@ -82,9 +83,10 @@ class Ball(GameSprite):
         self.ball_group = pg.sprite.Group()
         self.ball_group.add(self)
 
-    def go_ball(self, player):
-        for i in range(1):
+    def go_ball(self, player, player2):
+        for i in range(3):
             self.collide_player(player)
+            self.collide_player(player2)
             self.rect.x += self.step_x
             self.rect.y += self.step_y
 
@@ -105,4 +107,22 @@ class Ball(GameSprite):
     def collide_player(self, player):
         if pg.sprite.spritecollide(player, self.ball_group, False, pg.sprite.collide_mask):
             self.step_x *= -1
-            self.rect.x += self.step_x*100
+            self.rect.x += self.step_x*20
+            # self.step_x = 1 + random()
+            # self.step_y = 1 + random()
+        # if pg.sprite.collide_rect(self, player):
+        #     self.step_x *= -1
+
+class Text():
+    def __init__(self, x, y, size, color, scene):
+        self.x = x
+        self.y = y
+        self.size = size
+        self.color = color
+        self.scene = scene
+
+    def txt(self, text):
+        self.text = pg.font.Font(None, self.size).render(text, True, self.color)
+
+    def draw_txt(self):
+        self.scene.blit(self.text, (self.x, self.y))
